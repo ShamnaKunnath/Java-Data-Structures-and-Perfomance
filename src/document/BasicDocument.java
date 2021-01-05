@@ -36,7 +36,8 @@ public class BasicDocument extends Document
 	{
 		//TODO: Implement this method in week 2 according to the comments above.  
 		// See the Module 2 support videos if you need help.
-	    return 0;
+
+	    return getTokens("[a-zA-Z]+").size();
 	}
 	
 	/**
@@ -56,7 +57,7 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 2 support videos 
         // if you need help.
-        return 0;
+        return getTokens("[^.!?]+").size();
 	}
 	
 	/**
@@ -81,7 +82,11 @@ public class BasicDocument extends Document
 		// expression for the syllable counting.  We recommend you implement 
 		// the helper function countSyllables in Document.java using a loop, 
 		// and then call it here on each word.
-        return 0;
+		int count=0;
+		List<String> words=getTokens("[a-zA-Z]+");
+		for (String w:words)
+			count+=countSyllables(w);
+        return count;
 	}
 	
 	
@@ -100,7 +105,7 @@ public class BasicDocument extends Document
 				16, 13, 5);
 		testCase(new BasicDocument(""), 0, 0, 0);
 		testCase(new BasicDocument("sentence, with, lots, of, commas.!  "
-		        + "(And some poaren)).  The output is: 7.5."), 15, 11, 4);
+		        + "(And some poaren)).  The output : is 7.5."), 14, 11, 4);
 		testCase(new BasicDocument("many???  Senteeeeeeeeeences are"), 6, 3, 2);
 		testCase(new BasicDocument("Here is a series of test sentences. Your program should "
 				+ "find 3 sentences, 33 words, and 49 syllables. Not every word will have "
