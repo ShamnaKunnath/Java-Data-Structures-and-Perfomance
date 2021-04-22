@@ -160,10 +160,11 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-		double words=getNumWords();
-		double sentences=getNumSentences();
-		double syllables=getNumSyllables();
-		return 206.835-1.015*(words/sentences)-84.6*(syllables/words);
+		double words = (double)getNumWords();
+		double sentences = (double)getNumSentences();
+		double syllables = (double)getNumSyllables();
+		double result = 206.835 - 1.015*(words/sentences) - 84.6*(syllables/words);
+		return Math.round(result*100.0)/100.0;
 	}
 	
 	
