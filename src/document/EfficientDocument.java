@@ -51,11 +51,12 @@ public class EfficientDocument extends Document {
 		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
 		// OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
-		for(int i=0; i<tokens.size();i++) {
+		int n=tokens.size();
+		for(int i=0; i<n;i++) {
 			if(isWord(tokens.get(i))) {
 				numWords++;
 				numSyllables+=countSyllables(tokens.get(i));
-				if(i== tokens.size()-1) {
+				if(i== n-1) {
 				numSentences++;
 				}
 			}
