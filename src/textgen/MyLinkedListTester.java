@@ -178,7 +178,29 @@ public class MyLinkedListTester {
 		assertEquals("AddAtIndex: check size is correct ", 1, emptyList.size());
 		assertEquals("AddAtIndex: check element is added at the correct end", (Integer)1, emptyList.get(0));
 
-
+		try {
+			list1.add(0,null);
+			fail("Adding a null element");
+		}
+		catch(NullPointerException e){
+		}
+		try {
+			list1.add(-1,1);
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e){
+		}
+		try {
+			list1.add(4,1);
+			fail("Check out of bounds");
+		}
+		catch(IndexOutOfBoundsException e){
+		}
+		list1.add(2,1);
+		assertEquals("AddAtIndex: check size is correct ", 4, list1.size());
+		assertEquals("AddAtIndex: check element is added at the correct end", (Integer)1, list1.get(2));
+		assertEquals("AddAtIndex: check element is added at the correct end", (Integer)21, list1.get(1));
+		assertEquals("AddAtIndex: check element is added at the correct end", (Integer)42, list1.get(3));
 
 	}
 
