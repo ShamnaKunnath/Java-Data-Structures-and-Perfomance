@@ -107,6 +107,9 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	public void retrain(String sourceText)
 	{
 		// TODO: Implement this method.
+		wordList = new LinkedList<ListNode>();
+		starter = "";
+		train(sourceText);
 	}
 
 	// TODO: Add any private helper methods you need here.
@@ -123,6 +126,12 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		MarkovTextGeneratorLoL gen = new MarkovTextGeneratorLoL(new Random(42));
 		String textString = "Hello.  Hello there.  This is a test.  Hello there.  Hello Bob.  Test again.";
 		System.out.println(textString);
+
+		System.out.println("hi there hi leo");
+		gen.train("hi there hi leo");
+		System.out.println(gen);
+		System.out.println(gen.generateText(5));
+
 		gen.train(textString);
 		System.out.println(gen);
 		System.out.println("generatedText: ");
