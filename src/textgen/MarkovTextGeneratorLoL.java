@@ -133,15 +133,6 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		System.out.println(textString);
 
 
-		try {
-            String s = gen.generateText(20);
-            System.out.println("No error thrown. ");
-        } catch (Exception e) {
-        	System.out.println("Error thrown. ");
-        }
-
-
-
 		gen.train(textString);
 		System.out.println(gen);
 		System.out.println("generatedText: ");
