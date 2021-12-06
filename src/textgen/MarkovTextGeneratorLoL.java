@@ -2,7 +2,6 @@ package textgen;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 /**
@@ -33,40 +32,48 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	public void train(String sourceText)
 	{
 		// TODO: Implement this method
+		if(sourceText.equals(""))
+			return ;
 		String[] words=sourceText.split(" ");
 		starter= words[0];
 		String prevWord=starter;
-		int flag=0;
+
 		for(int i=1;i<words.length;i++) {
-			for(ListNode node:wordList) {
-				if(node.getWord().equals(prevWord)) {
-					node.addNextWord(words[i]);
-					flag=1;
-				}
-			}
-			if(flag==0) {
-				ListNode node= new ListNode(prevWord);
+			ListNode node=isWordInList(prevWord);
+			if(node!=null) {
 				node.addNextWord(words[i]);
-				wordList.add(node);
+			}
+			else {
+				ListNode Node= new ListNode(prevWord);
+				Node.addNextWord(words[i]);
+				wordList.add(Node);
 			}
 			prevWord=words[i];
-			flag=0;
 		}
 		ListNode node= new ListNode(prevWord);
 		node.addNextWord(starter);
 		wordList.add(node);
 	}
 
+	public ListNode isWordInList(String word) {
+		for(ListNode node:wordList) {
+			if(node.getWord().equals(word))
+				return node;
+		}
+		return null;
+	}
 	/**
 	 * Generate the number of words requested.
 	 */
 	@Override
 	public String generateText(int numWords) {
 	    // TODO: Implement this method
-		if(numWords <=0 )
-			return null;
-		if( wordList.isEmpty())
-			return " ";
+		if( numWords <=0 || wordList.isEmpty())
+			return "";
+		if(wordList.isEmpty())
+			throw new NullPointerException();
+
+
 		else {
 			String currWord=starter;
 			String output="";
@@ -74,17 +81,15 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 			output+=" ";
 			int i=1;
 			while(i<numWords) {
-				for(ListNode node:wordList) {
-					if(node.getWord().equals(currWord)) {
+				ListNode node=isWordInList(currWord);
+				if(node!=null) {
 						String w=node.getRandomNextWord(rnGenerator);
 						output+=w;
 						output+=" ";
 						currWord=w;
 						i++;
-						break;
 					}
 				}
-			}
 			return output;
 		}
 	}
@@ -127,10 +132,15 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		String textString = "Hello.  Hello there.  This is a test.  Hello there.  Hello Bob.  Test again.";
 		System.out.println(textString);
 
-		System.out.println("hi there hi leo");
-		gen.train("hi there hi leo");
-		System.out.println(gen);
-		System.out.println(gen.generateText(5));
+
+		try {
+            String s = gen.generateText(20);
+            System.out.println("No error thrown. ");
+        } catch (Exception e) {
+        	System.out.println("Error thrown. ");
+        }
+
+
 
 		gen.train(textString);
 		System.out.println(gen);
